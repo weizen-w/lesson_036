@@ -1,15 +1,32 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GasStation {
 
+  // Вопросы:
+  // - if
+  // - for
+  // - while
+  // - массивы / List / Set
+  // - методы
+  // - классы / модификаторы доступа
+  // Симулятор заправки
+  // - приветствие
+  // - указание количества топлива
+  // - расчёт суммы
+
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
+
     System.out.println("=== Заправочная станция ===");
+
     System.out.println("Добро пожаловать! Как вас зовут?");
     String name = scanner.nextLine();
-    ArrayList<Order> orderArrayList = createOrderList(name, scanner);
-    for (Order order : orderArrayList) {
+
+    int orders = readOrdersAmount(scanner);
+
+    // for (командаПередЦиклом; условиеПовторения; командаПослеШага)
+    for (int counter = 0; counter < orders; ++counter) {
+      Order order = Order.readOrder(name, scanner);
       order.print();
     }
   }
@@ -22,16 +39,8 @@ public class GasStation {
       System.out.print("Введите количество заказов: ");
     }
     int orders = scanner.nextInt();
-    scanner.nextLine();
+    scanner.nextLine(); // пропустить остаток строки, из которой мы прочитали число
+    // сканер не закрываем - мы продолжим им пользоваться, не мы создавали, не нам закрывать
     return orders;
-  }
-
-  private static ArrayList<Order> createOrderList(String name, Scanner scanner) {
-    ArrayList<Order> orderList = new ArrayList<>();
-    int orders = readOrdersAmount(scanner);
-    for (int counter = 0; counter < orders; ++counter) {
-      orderList.add(Order.readOrder(name, scanner));
-    }
-    return orderList;
   }
 }
